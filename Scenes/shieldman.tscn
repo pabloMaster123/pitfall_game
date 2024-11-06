@@ -1,6 +1,7 @@
-[gd_scene load_steps=60 format=3 uid="uid://ra1hh7folkhn"]
+[gd_scene load_steps=63 format=3 uid="uid://ra1hh7folkhn"]
 
 [ext_resource type="Texture2D" uid="uid://bmmmiprx2w8gs" path="res://Assests/sprites/Shieldman/attack-sheet.png" id="1_nwhbi"]
+[ext_resource type="Script" path="res://Scripts/shieldman.gd" id="1_sy6nv"]
 [ext_resource type="Texture2D" uid="uid://c5sx80bk5r4x4" path="res://Assests/sprites/Shieldman/death-sheet.png" id="2_lb2wh"]
 [ext_resource type="Texture2D" uid="uid://c162ekbnsixwm" path="res://Assests/sprites/Shieldman/Idle-sheet.png" id="3_cc24t"]
 [ext_resource type="Texture2D" uid="uid://lmk135ev4gj3" path="res://Assests/sprites/Shieldman/fall-sheet.png" id="4_33en0"]
@@ -399,13 +400,41 @@ animations = [{
 [sub_resource type="CapsuleShape2D" id="CapsuleShape2D_yeqmb"]
 radius = 9.0
 
+[sub_resource type="CircleShape2D" id="CircleShape2D_fk2x1"]
+radius = 97.0052
+
+[sub_resource type="CapsuleShape2D" id="CapsuleShape2D_yyw5w"]
+radius = 19.433
+height = 62.57
+
 [node name="Shieldman" type="CharacterBody2D"]
+position = Vector2(-15, -47)
+scale = Vector2(2.72732, 2.23749)
+script = ExtResource("1_sy6nv")
 
 [node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="."]
+position = Vector2(16, 21.5)
+scale = Vector2(1.5, 1.67188)
 sprite_frames = SubResource("SpriteFrames_qg3vg")
-animation = &"attack"
-frame_progress = 0.56973
+autoplay = "default"
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
-position = Vector2(0, 18)
+position = Vector2(15, 47)
 shape = SubResource("CapsuleShape2D_yeqmb")
+
+[node name="detection_area" type="Area2D" parent="."]
+collision_layer = 2
+collision_mask = 2
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="detection_area"]
+position = Vector2(15, 47)
+shape = SubResource("CircleShape2D_fk2x1")
+
+[node name="hitbox" type="Area2D" parent="."]
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="hitbox"]
+position = Vector2(14.6664, 52.7376)
+shape = SubResource("CapsuleShape2D_yyw5w")
+
+[connection signal="body_entered" from="detection_area" to="." method="_on_detection_area_body_entered"]
+[connection signal="body_exited" from="detection_area" to="." method="_on_detection_area_body_exited"]
