@@ -398,14 +398,15 @@ animations = [{
 }]
 
 [sub_resource type="CapsuleShape2D" id="CapsuleShape2D_yeqmb"]
-radius = 9.0
+radius = 13.5995
+height = 52.7377
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_fk2x1"]
 radius = 97.0052
 
 [sub_resource type="CapsuleShape2D" id="CapsuleShape2D_yyw5w"]
-radius = 19.433
-height = 62.57
+radius = 16.1331
+height = 52.7378
 
 [node name="Shieldman" type="CharacterBody2D"]
 position = Vector2(-15, -47)
@@ -419,7 +420,7 @@ sprite_frames = SubResource("SpriteFrames_qg3vg")
 autoplay = "default"
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
-position = Vector2(15, 47)
+position = Vector2(15.0331, 50.503)
 shape = SubResource("CapsuleShape2D_yeqmb")
 
 [node name="detection_area" type="Area2D" parent="."]
@@ -438,3 +439,5 @@ shape = SubResource("CapsuleShape2D_yyw5w")
 
 [connection signal="body_entered" from="detection_area" to="." method="_on_detection_area_body_entered"]
 [connection signal="body_exited" from="detection_area" to="." method="_on_detection_area_body_exited"]
+[connection signal="body_entered" from="hitbox" to="." method="_on_hitbox_body_entered"]
+[connection signal="body_exited" from="hitbox" to="." method="_on_hitbox_body_exited"]
